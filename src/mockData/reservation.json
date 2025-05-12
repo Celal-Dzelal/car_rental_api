@@ -1,0 +1,72 @@
+[
+  {
+    "userId": "64c5ed12345a123456789013",
+    "carId": "64c5ed12345a12345678901a",
+    "coDriver": "Marko Petrovic",
+    "startDate": "2025-10-10",
+    "endDate": "2025-10-16",
+    "amount": 1610,
+    "createdId": "64c5ed12345a123456789013",
+    "updatedId": "64c5ed12345a123456789013"
+  },
+  {
+    "userId": "64c5ed12345a123456789013",
+    "carId": "64c5ed12345a12345678901a",
+    "coDriver": "Ivana Stojanovic",
+    "startDate": "2025-10-17",
+    "endDate": "2025-10-18",
+    "amount": 230,
+    "createdId": "64c5ed12345a123456789013",
+    "updatedId": "64c5ed12345a123456789018"
+  },
+  {
+    "userId": "64c5ed12345a123456789014",
+    "carId": "64c5ed12345a12345678901b",
+    "coDriver": "Nikola Dragan",
+    "startDate": "2025-10-14",
+    "endDate": "2025-10-20",
+    "amount": 1260,
+    "createdId": "64c5ed12345a123456789014",
+    "updatedId": "64c5ed12345a123456789014"
+  },
+  {
+    "userId": "64c5ed12345a123456789013",
+    "carId": "64c5ed12345a12345678901c",
+    "coDriver": "Sanja Vukovic",
+    "startDate": "2025-10-21",
+    "endDate": "2025-10-29",
+    "amount": 1710,
+    "createdId": "64c5ed12345a123456789013",
+    "updatedId": "64c5ed12345a123456789013"
+  },
+  {
+    "userId": "64c5ed12345a123456789013",
+    "carId": "64c5ed12345a12345678901c",
+    "coDriver": "Milan Jovanovic",
+    "startDate": "2025-10-13",
+    "endDate": "2025-10-15",
+    "amount": 570,
+    "createdId": "64c5ed12345a123456789013",
+    "updatedId": "64c5ed12345a123456789013"
+  },
+  {
+    "userId": "64c5ed12345a123456789013",
+    "carId": "64c5ed12345a12345678901c",
+    "coDriver": "Ana Marinkovic",
+    "startDate": "2025-10-11",
+    "endDate": "2025-10-12",
+    "amount": 380,
+    "createdId": "64c5ed12345a123456789013",
+    "updatedId": "64c5ed12345a123456789013"
+  },
+  {
+    "userId": "64c5ed12345a123456789018",
+    "carId": "64c5ed12345a12345678901f",
+    "coDriver": "Vesna Nikolic",
+    "startDate": "2025-10-23",
+    "endDate": "2025-10-25",
+    "amount": 570,
+    "createdId": "64c5ed12345a123456789018",
+    "updatedId": "64c5ed12345a123456789018"
+  }
+]

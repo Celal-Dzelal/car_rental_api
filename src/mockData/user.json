@@ -1,0 +1,90 @@
+[
+  {
+    "_id": "64c5ed12345a123456789011",
+    "username": "admin",
+    "password": "aA*12345",
+    "email": "admin@example.com",
+    "firstName": "Marko",
+    "lastName": "Jovic",
+    "isActive": true,
+    "isAdmin": true,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789012",
+    "username": "staff",
+    "password": "aA*12345",
+    "email": "staff@example.com",
+    "firstName": "Nikola",
+    "lastName": "Petrovic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": true
+  },
+  {
+    "_id": "64c5ed12345a123456789013",
+    "username": "user",
+    "password": "aA*12345",
+    "email": "user@example.com",
+    "firstName": "Jovana",
+    "lastName": "Markovic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789014",
+    "username": "user1",
+    "password": "aA*12345",
+    "email": "user1@example.com",
+    "firstName": "Ana",
+    "lastName": "Milosevic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789015",
+    "username": "banned",
+    "password": "aA*12345",
+    "email": "banned@example.com",
+    "firstName": "Stefan",
+    "lastName": "Nikolic",
+    "isActive": false,
+    "isAdmin": false,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789016",
+    "username": "user2",
+    "password": "aA*12345",
+    "email": "user2@example.com",
+    "firstName": "Bojan",
+    "lastName": "Ilic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789017",
+    "username": "user3",
+    "password": "aA*12345",
+    "email": "user3@example.com",
+    "firstName": "Luka",
+    "lastName": "Petrovic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": false
+  },
+  {
+    "_id": "64c5ed12345a123456789018",
+    "username": "user4",
+    "password": "aA*12345",
+    "email": "user4@example.com",
+    "firstName": "Maja",
+    "lastName": "Kovacevic",
+    "isActive": true,
+    "isAdmin": false,
+    "isStaff": false
+  }
+]
