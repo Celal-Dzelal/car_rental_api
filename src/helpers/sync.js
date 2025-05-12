@@ -30,6 +30,14 @@ module.exports = async function () {
           } catch (err) {
             console.log("Add Users: FAILED", err);
           }
+          try {
+            const cars = require("../mockData/car.json");
+            const Car = require("../models/car");
+            await Car.insertMany(cars);
+            console.log("Add Cars: SUCCESS");
+          } catch (err) {
+            console.log("Add Cars: FAILED", err);
+          }
         } catch (err) {
           console.log("An error occured while deleting the database:", err);
         } finally {
