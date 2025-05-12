@@ -1,7 +1,5 @@
 "use strict";
 
-const { populate } = require("../models/user");
-
 module.exports = (req, res, next) => {
   //! -------------------------------- Filtering ------------------------------- */
 
@@ -40,7 +38,7 @@ module.exports = (req, res, next) => {
 
   //! --------------------------- GetModelListDetails -------------------------- */
 
-  res.getModelList = async (Model, customFilter = {}) => {
+  res.getModelListDetails = async (Model, customFilter = {}) => {
     const data = await Model.find({ ...filter, ...search, ...customFilter });
 
     let details = {

@@ -34,7 +34,7 @@ app.use(express.json());
 
 // app.use(require("./src/middlewares/logger"));
 
-// app.use(require("./src/middlewares/queryHandler"));
+app.use(require("./src/middlewares/queryHandler"));
 
 //! --------------------------------- Routes --------------------------------- */
 
@@ -50,7 +50,7 @@ app.all("/", (req, res) => {
   });
 });
 
-// app.use(require("./src/routes"));
+app.use(require("./src/routes/index"));
 
 //! ------------------------------ ErrorHandler ------------------------------ */
 
