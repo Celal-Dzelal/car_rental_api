@@ -8,6 +8,8 @@ router.use("/users", require("./user"));
 
 router.use("/cars", require("./car"));
 
+router.use("/reservations", require("./reservation"));
+
 //! -------------------------------------------------------------------------- */
 
 module.exports = router;

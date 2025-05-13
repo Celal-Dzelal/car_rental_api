@@ -38,6 +38,14 @@ module.exports = async function () {
           } catch (err) {
             console.log("Add Cars: FAILED", err);
           }
+          try {
+            const reservations = require("../mockData/reservation.json");
+            const Reservation = require("../models/reservation");
+            await Reservation.insertMany(reservations);
+            console.log("Add Reservations: SUCCESS");
+          } catch (err) {
+            console.log("Add Reservations: FAILED", err);
+          }
         } catch (err) {
           console.log("An error occured while deleting the database:", err);
         } finally {

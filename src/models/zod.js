@@ -69,7 +69,62 @@ const userUpdateSchema = z.object({
   }),
 });
 
+const reservationCreateSchema = z.object({
+  body: z
+    .object({
+      userId: z.string().min(1, "userId is required"),
+      carId: z.string().min(1, "carId is required"),
+      coDriver: z
+        .string()
+        .min(4, "Co-driver name must be at least 4 characters long")
+        .trim(),
+      startDate: z
+        .string()
+        .transform((str) => new Date(str))
+        .refine((date) => date > new Date(), {
+          message: "The start date cannot be a past date",
+        }),
+      endDate: z.string().transform((str) => new Date(str)),
+      rentalPeriod: z.number().min(1).optional(),
+      amount: z.number(),
+    })
+    .refine((data) => data.startDate < data.endDate, {
+      message: "End date must be after start date",
+      path: ["endDate"],
+    }),
+});
+
+const reservationUpdateSchema = z.object({
+  body: z.object({
+    userId: z.string().min(1, "userId is required").optional(),
+    carId: z.string().min(1, "carId is required").optional(),
+    coDriver: z
+      .string()
+      .min(4, "Co-driver name must be at least 4 characters long")
+      .trim()
+      .optional(),
+    startDate: z
+      .string()
+      .transform((str) => new Date(str))
+      .refine((date) => date > new Date(), {
+        message: "The start date cannot be a past date",
+      })
+      .optional(),
+    endDate: z
+      .string()
+      .transform((str) => new Date(str))
+      .optional(),
+    rentalPeriod: z
+      .number()
+      .min(1, "End Date must be later than start date")
+      .optional(),
+    amount: z.number().optional(),
+  }),
+});
+
 module.exports = {
   userCreateSchema,
   userUpdateSchema,
+  reservationCreateSchema,
+  reservationUpdateSchema,
 };

@@ -16,7 +16,6 @@ router.put("/:id", validate(userUpdateSchema), update);
 router.patch("/:id", validate(userUpdateSchema), update);
 
 router.get("/", list);
-router.get("/:id", read);
-router.delete("/:id", deleteUser);
+router.route("/:id").get(read).delete(deleteUser);
 
 module.exports = router;
