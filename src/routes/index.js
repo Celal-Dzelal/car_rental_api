@@ -10,6 +10,8 @@ router.use("/cars", require("./car"));
 
 router.use("/reservations", require("./reservation"));
 
+router.use("/tokens", require("./token"));
+
 //! -------------------------------------------------------------------------- */
 
 module.exports = router;
