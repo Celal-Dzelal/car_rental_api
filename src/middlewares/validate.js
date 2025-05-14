@@ -1,5 +1,7 @@
 "use strict";
 
+const { ZodError } = require("zod");
+
 function validate(schema) {
   return (req, res, next) => {
     try {
@@ -7,9 +9,9 @@ function validate(schema) {
       req.body = parsed.body;
       next();
     } catch (error) {
-      if (error.errors) {
+      if (error instanceof ZodError) {
         const formattedErrors = error.errors.map((err) => ({
-          field: err.path[1] || err.path[0],
+          field: err.path.join("."),
           message: err.message,
         }));
         console.error("Validation Error Details:", formattedErrors);

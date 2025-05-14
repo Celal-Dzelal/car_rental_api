@@ -78,8 +78,8 @@ module.exports = {
                 }
             }
         */
-    const userId = req.user.isAdmin ? req.params.id : req.user.id;
-    const data = await User.findByIdAndUpdate(userId, req.body, {
+    // const userId = req.user.isAdmin ? req.params.id : req.user.id;
+    const data = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.status(202).send({
