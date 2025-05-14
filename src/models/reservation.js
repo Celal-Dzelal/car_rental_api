@@ -2,6 +2,7 @@
 
 const { mongoose } = require("../configs/dbConnection");
 const uniqueValidator = require("mongoose-unique-validator");
+const dayjs = require("../helpers/dayjs");
 
 const ReservationSchema = new mongoose.Schema(
   {
@@ -40,12 +41,35 @@ const ReservationSchema = new mongoose.Schema(
     },
     amount: {
       type: Number,
-      required: true,
+      default: 0,
     },
   },
   { collection: "reservations", timestamps: true }
 );
 
 ReservationSchema.plugin(uniqueValidator, { message: "This {PATH} is exist" });
+
+ReservationSchema.methods.toJSON = function () {
+  const obj = this.toObject();
+
+  obj.startDate = dayjs(obj.startDate).format("MMMM D, YYYY");
+  obj.endDate = dayjs(obj.endDate).format("MMMM D, YYYY");
+
+  return obj;
+};
+
+ReservationSchema.pre("save", async function (next) {
+  try {
+    const Car = require("./car");
+    const car = await Car.findById(this.carId);
+    if (!car) {
+      throw new Error("Car not found");
+    }
+    this.amount = car.pricePerDay * this.rentalPeriod;
+    next();
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = mongoose.model("Reservation", ReservationSchema);

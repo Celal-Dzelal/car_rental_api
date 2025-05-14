@@ -1,5 +1,5 @@
 const { z } = require("zod");
-
+const dayjs = require("../helpers/dayjs");
 const passwordRegex =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
@@ -80,13 +80,21 @@ const reservationCreateSchema = z.object({
         .trim(),
       startDate: z
         .string()
-        .transform((str) => new Date(str))
-        .refine((date) => date > new Date(), {
+        .refine((val) => dayjs(val, "DD.MM.YYYY", true).isValid(), {
+          message: "Start Date is not valid. Format: DD.MM.YYYY",
+        })
+        .refine((val) => dayjs(val, "DD.MM.YYYY").isAfter(dayjs()), {
           message: "The start date cannot be a past date",
-        }),
-      endDate: z.string().transform((str) => new Date(str)),
+        })
+        .transform((val) => dayjs(val, "DD.MM.YYYY").toDate()),
+      endDate: z
+        .string()
+        .refine((val) => dayjs(val, "DD.MM.YYYY", true).isValid(), {
+          message: "End Date is not valid. Format: DD.MM.YYYY",
+        })
+        .transform((val) => dayjs(val, "DD.MM.YYYY").toDate()),
       rentalPeriod: z.number().min(1).optional(),
-      amount: z.number(),
+      amount: z.number().optional(),
     })
     .refine((data) => data.startDate < data.endDate, {
       message: "End date must be after start date",
@@ -95,31 +103,43 @@ const reservationCreateSchema = z.object({
 });
 
 const reservationUpdateSchema = z.object({
-  body: z.object({
-    userId: z.string().min(1, "userId is required").optional(),
-    carId: z.string().min(1, "carId is required").optional(),
-    coDriver: z
-      .string()
-      .min(4, "Co-driver name must be at least 4 characters long")
-      .trim()
-      .optional(),
-    startDate: z
-      .string()
-      .transform((str) => new Date(str))
-      .refine((date) => date > new Date(), {
-        message: "The start date cannot be a past date",
-      })
-      .optional(),
-    endDate: z
-      .string()
-      .transform((str) => new Date(str))
-      .optional(),
-    rentalPeriod: z
-      .number()
-      .min(1, "End Date must be later than start date")
-      .optional(),
-    amount: z.number().optional(),
-  }),
+  body: z
+    .object({
+      userId: z.string().min(1, "userId is required").optional(),
+      carId: z.string().min(1, "carId is required").optional(),
+      coDriver: z
+        .string()
+        .min(4, "Co-driver name must be at least 4 characters long")
+        .trim()
+        .optional(),
+      startDate: z
+        .string()
+        .refine((val) => dayjs(val, "DD.MM.YYYY", true).isValid(), {
+          message: "Start Date is not valid. Format: DD.MM.YYYY",
+        })
+        .refine((val) => dayjs(val, "DD.MM.YYYY").isAfter(dayjs()), {
+          message: "The start date cannot be a past date",
+        })
+        .transform((val) => dayjs(val, "DD.MM.YYYY").toDate())
+        .optional(),
+      endDate: z
+        .string()
+        .refine((val) => dayjs(val, "DD.MM.YYYY", true).isValid(), {
+          message: "End Date is not valid. Format: DD.MM.YYYY",
+        })
+        .transform((val) => dayjs(val, "DD.MM.YYYY").toDate())
+        .optional(),
+      rentalPeriod: z
+        .number()
+        .min(1, "End Date must be later than start date")
+        .optional(),
+      amount: z.number().optional(),
+    })
+    .refine((data) => data.startDate < data.endDate, {
+      message: "End date must be after start date",
+      path: ["endDate"],
+    })
+    .optional(),
 });
 
 module.exports = {
