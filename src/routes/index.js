@@ -12,6 +12,8 @@ router.use("/reservations", require("./reservation"));
 
 router.use("/tokens", require("./token"));
 
+router.use("/auth", require("./auth"));
+
 //! -------------------------------------------------------------------------- */
 
 module.exports = router;
