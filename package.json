@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Car Rental API by D.Z.E.L. — A scalable and efficient system for managing vehicle rentals.",
   "main": "index.js",
-  "contac": "binaycelalselim@gmail.com",
+  "contact": "binaycelalselim@gmail.com",
   "scripts": {
     "start": "nodemon",
     "debug": "DEBUG=* nodemon",

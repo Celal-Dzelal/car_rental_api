@@ -42,11 +42,11 @@ app.all("/", (req, res) => {
   res.send({
     error: false,
     message: "Welcome to Car Rental API by D.Z.E.L.",
-    // documents: {
-    //   swagger: "/document/swagger",
-    //   redoc: "/document/redoc",
-    //   json: "/document/json",
-    // },
+    documents: {
+      swagger: "/document/swagger",
+      redoc: "/document/redoc",
+      json: "/document/json",
+    },
   });
 });
 

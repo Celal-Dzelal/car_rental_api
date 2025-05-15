@@ -59,6 +59,11 @@ module.exports = {
     }
   },
   logout: async (req, res) => {
+    /*
+        #swagger.tags = ["Authentication"]
+        #swagger.summary = "SimpleToken: Logout"
+        #swagger.description = "Delete token key"
+    */
     const auth = req.headers?.authorization || null;
     const tokenKey = auth ? auth.split(" ") : null;
     const tokenData = await Token.deleteOne({ token: tokenKey[1] });
