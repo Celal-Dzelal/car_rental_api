@@ -1,6 +1,7 @@
 "use strict";
 
 const Car = require("../models/car");
+const Reservation = require("../models/reservation");
 
 module.exports = {
   list: async (req, res) => {
@@ -16,11 +17,27 @@ module.exports = {
                 </ul>
             `
         */
-    const data = await res.getModelList(
-      Car
-      // req.user.isAdmin ? {} : { _id: req.user.id }
-    );
-    const details = await res.getModelListDetails(Car);
+
+    let customFilter = { isAvailable: true };
+
+    const { startDate, endDate } = req.query;
+
+    const reservedCar = await Reservation.find(
+      {
+        startDate: { $lte: endDate },
+        endDate: { $gte: startDate },
+      },
+      { carId: 1, _id: 0 }
+    ).distinct("carId");
+
+    customFilter._id = { $nin: reservedCar };
+
+    const data = await res.getModelList(Car, customFilter, [
+      "createdId",
+      "updatedId",
+    ]);
+
+    const details = await res.getModelListDetails(Car, customFilter);
     res.status(200).send({
       error: false,
       details,
@@ -51,8 +68,11 @@ module.exports = {
             #swagger.tags = ["Cars"]
             #swagger.summary = "Get Single Car"
         */
-    // const userId = req.user.isAdmin ? req.params.id : req.user.id;
-    const data = await Car.findById(req.params.id);
+
+    const data = await Car.findById(req.params.id).populate([
+      { path: "createdId", select: "username" },
+      { path: "updatedId", select: "username" },
+    ]);
     res.status(200).send({
       error: false,
       data,
@@ -84,8 +104,22 @@ module.exports = {
             #swagger.tags = ["Cars"]
             #swagger.summary = "Delete Car"
         */
-    // const userId = req.user.isAdmin ? req.params.id : req.user.id;
-    const data = await User.findByIdAndDelete(req.params.id);
+
+    if (!req.user) {
+      return res
+        .status(401)
+        .send({ error: true, message: "Unauthorized access." });
+    }
+
+    let query = {};
+
+    if (!(req.user?.isAdmin || req.user?.isStaff)) {
+      query.userId = req.user._id;
+    }
+
+    const data = await res.getModelList(User, query);
+
+    // const data = await User.findByIdAndDelete(req.params.id);
     if (data) {
       return res.status(200).send({
         message: "Car Deleted Succesfully",

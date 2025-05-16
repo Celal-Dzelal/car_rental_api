@@ -5,22 +5,34 @@ const Reservation = require("../models/reservation");
 module.exports = {
   list: async (req, res) => {
     /*
-            #swagger.tags = ["Reservations"]
-            #swagger.summary = "List Reservations"
-            #swagger.description = `
-                You can send query with endpoint for search[], sort[], page and limit.
-                <ul> Examples:
-                    <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
-                    <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
-                    <li>URL/?<b>page=2&limit=1</b></li>
-                </ul>
-            `
-        */
-    const data = await res.getModelList(
-      Reservation
-      // req.user.isAdmin ? {} : { _id: req.user.id }
-    );
-    const details = await res.getModelListDetails(Reservation);
+      #swagger.tags = ["Reservations"]
+      #swagger.summary = "List Reservations"
+      #swagger.description = `
+          Admin and staff can list all reservations.
+          Normal users can only see their own reservations.
+          <ul> Examples:
+              <li>URL/?<b>search[field1]=value1&search[field2]=value2</b></li>
+              <li>URL/?<b>sort[field1]=1&sort[field2]=-1</b></li>
+              <li>URL/?<b>page=2&limit=1</b></li>
+          </ul>
+      `
+    */
+
+    if (!req.user) {
+      return res
+        .status(401)
+        .send({ error: true, message: "Unauthorized access." });
+    }
+
+    let query = {};
+
+    if (!(req.user?.isAdmin || req.user?.isStaff)) {
+      query.userId = req.user._id;
+    }
+
+    const data = await res.getModelList(Reservation, query);
+    const details = await res.getModelListDetails(Reservation, query);
+
     res.status(200).send({
       error: false,
       details,

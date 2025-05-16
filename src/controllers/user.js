@@ -15,11 +15,21 @@ module.exports = {
           </ul>
     */
 
-    const data = await res.getModelList(
-      User
-      // req.user.isAdmin ? {} : { _id: req.user.id }
-    );
-    const details = await res.getModelListDetails(User);
+    if (!req.user) {
+      return res
+        .status(401)
+        .send({ error: true, message: "Unauthorized access." });
+    }
+
+    let query = {};
+
+    if (!(req.user?.isAdmin || req.user?.isStaff)) {
+      query.userId = req.user._id;
+    }
+
+    const data = await res.getModelList(User, query);
+    const details = await res.getModelListDetails(User, query);
+
     res.status(200).send({
       error: false,
       details,
@@ -76,7 +86,8 @@ module.exports = {
                 }
             }
         */
-    // const userId = req.user.isAdmin ? req.params.id : req.user.id;
+
+    if (!req.user.isAdmin) req.params.id = req.user._id;
     const data = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
