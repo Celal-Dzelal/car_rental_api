@@ -23,7 +23,6 @@ const CarSchema = new mongoose.Schema(
     },
     year: {
       type: Number,
-      trim: true,
       required: true,
       min: [1955, "The minimum manufacturing year for classic cars is 1955"],
       max: [1981, "The maximum manufacturing year for classic cars is 1981"],
@@ -34,7 +33,6 @@ const CarSchema = new mongoose.Schema(
     },
     capacity: {
       type: Number,
-      trim: true,
       required: true,
       min: [2, "The vehicle must have a minimum capacity of 2 passengers"],
       max: [6, "The vehicle must have a maximum capacity of 6 passengers"],

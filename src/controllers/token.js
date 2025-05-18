@@ -50,7 +50,7 @@ module.exports = {
 
     const data = await Token.findByIdAndDelete(req.params.id);
 
-    if (result) {
+    if (data) {
       return res.status(200).send({
         error: false,
         message: "Token Deleted Succesfully",

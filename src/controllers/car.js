@@ -91,7 +91,7 @@ module.exports = {
             }
         */
     // const userId = req.user.isAdmin ? req.params.id : req.user.id;
-    const data = await User.findByIdAndUpdate(req.params.id, req.body, {
+    const data = await Car.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });
     res.status(202).send({
@@ -117,9 +117,8 @@ module.exports = {
       query.userId = req.user._id;
     }
 
-    const data = await res.getModelList(User, query);
+    const data = await Car.findOneAndDelete({ _id: req.params.id, ...query });
 
-    // const data = await User.findByIdAndDelete(req.params.id);
     if (data) {
       return res.status(200).send({
         message: "Car Deleted Succesfully",

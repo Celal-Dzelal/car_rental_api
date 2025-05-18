@@ -18,7 +18,7 @@ module.exports = async (req, res, next) => {
       //! ----------------------------------- JWT ---------------------------------- */
       try {
         jwt.verify(tokenKey[1], process.env.ACCESS_KEY, (error, data) => {
-          req.user = accessData ? accessData : null;
+          req.user = data ? data : null;
         });
       } catch (error) {
         req.user = null;

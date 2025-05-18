@@ -22,5 +22,5 @@ const logStream = fs.createWriteStream(
 );
 
 module.exports = morgan("combined", {
-  stram: logStream,
+  stream: logStream,
 });
